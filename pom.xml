@@ -1,12 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.iesalixar.daw2.jorgesaldana</groupId>
-  <artifactId>ticket-logger</artifactId>
+  <groupId>org.iesalixar.daw2.jsc</groupId>
+  <artifactId>dwese-ticket-logger-servlet</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>ticket-logger Maven Webapp</name>
-  <url>http://maven.apache.org</url>
+  <name>JSC - Aplicación Web para el registro de tickets en compras de supermercado.
+  </name>
+  <url>https://github.com/josalca07</url>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -14,8 +15,91 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>6.1.0</version>
+      <scope>provided</scope>
+    </dependency>
+      <dependency>
+          <groupId>org.projectlombok</groupId>
+          <artifactId>lombok</artifactId>
+          <version>1.18.30</version>
+          <scope>provided</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter</artifactId>
+          <version>3.3.4</version>
+      </dependency>
+      <dependency>
+          <groupId>io.github.cdimascio</groupId>
+          <artifactId>dotenv-java</artifactId>
+          <version>3.0.2</version>
+      </dependency>
+      <dependency>
+          <groupId>org.mariadb.jdbc</groupId>
+          <artifactId>mariadb-java-client</artifactId>
+          <version>3.4.1</version>
+      </dependency>
   </dependencies>
   <build>
-    <finalName>ticket-logger</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.16.0</version>
+        <configuration>
+          <source>21</source>
+          <target>21</target>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.12.0</version>
+        <configuration>
+          <source>21</source>
+          <additionalJOption>-Xdoclint:none</additionalJOption>
+          <encoding>UTF-8</encoding>
+          <docencoding>UTF-8</docencoding>
+          <charset>UTF-8</charset>
+          <show>private</show>
+          <noindex>false</noindex>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>javadoc</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>11.0.24</version>
+        <configuration>
+          <webApp>
+            <contextPath>/</contextPath>
+          </webApp>
+          <scanIntervalSeconds>10</scanIntervalSeconds>
+          <httpConnector>
+            <port>8080</port>
+          </httpConnector>
+          <jvmArgs>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=*:5005</jvmArgs>
+        </configuration>
+      </plugin>
+    </plugins>
+
+    <finalName>dwese-ticket-logger-servlet</finalName>
+      <resources>
+          <resource>
+              <directory>src/main/resources</directory>
+              <filtering>true</filtering>
+          </resource>
+      </resources>
   </build>
 </project>
